@@ -1,6 +1,5 @@
 # cross-filter_scatterplot
 
-
 ## Prepare input file
 
 The input file is a TSV file (i.e., tab-delimited file) with 5+ columns. The first three columns are chromosome name, start, and end position of a region. The rest columns represent average signals of different data. For example, the first 7 rows of an sample data looks at this:
@@ -18,3 +17,18 @@ chr5    700000  800000  0.270381648093462       -0.15118619240820408
 Notably, the first row must be the header, showing the name of each column.
 
 To create the input file, you can either write a custom script or use some public tools. For example, the deepTools provides a convenient program called multiBigwigSummary that can create the input file from some bigWig files. Please read their [https://deeptools.readthedocs.io/en/develop/content/tools/multiBigwigSummary.html](documentation) for details.
+
+## Use the tool
+You can access the tool at [http://genome-dev.compbio.cs.cmu.edu:8050](http://genome-dev.compbio.cs.cmu.edu:8050). Several pre-computed input files are available to use. You can use the dropdown menu to select annotation file you want to use. You can also upload your input file to explore customized data. To host the tool in your server, please clone this repo and modify the host name at the end of the app.py file. The tool is built using [dash](https://dash.plotly.com/installation) and [dash-extensions](https://pypi.org/project/dash-extensions/).
+
+After you install the dash and dash_extensions, start the server by typing 'python app.py'. The server should be up at <hostname>:8050.
+```
+  pip install dash==1.17.0
+  pip install dash-extensions
+  python app.py
+```
+ 
+The tool currently only supports python3 due to the dependency of dash-extensions. 
+
+## About
+This tool is created by Yang Zhang. 
