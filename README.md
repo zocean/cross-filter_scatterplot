@@ -1,4 +1,4 @@
-# cross-filter_scatterplot
+# An interactive scatterplot tool for genomic analysis
 
 ## Prepare input file
 
