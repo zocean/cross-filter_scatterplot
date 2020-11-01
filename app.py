@@ -1,7 +1,7 @@
 #!/home/yangz6/Software/anaconda3/bin/python
 # Programmer : Yang Zhang 
 # Contact: zocean636@gmail.com
-# Last-modified: 30 Oct 2020 12:57:24 AM
+# Last-modified: 01 Nov 2020 05:26:15 PM
 
 import base64
 import io
@@ -25,7 +25,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # load data
 #df = pd.read_csv("data_large.tsv", sep = '\t', header = 0)
-df = pd.read_csv("U54_all.tsv", sep = '\t', header = 0)
+df = pd.read_csv("U54_all.v2.tsv", sep = '\t', header = 0)
 
 # get possible column name
 column_list = [item for item in df.columns.to_list() if item not in ['chrom', 'start', 'stop', 'size', 'mid']]
