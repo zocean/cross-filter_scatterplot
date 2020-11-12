@@ -1,7 +1,7 @@
 #!/home/yangz6/Software/anaconda3/bin/python
 # Programmer : Yang Zhang 
 # Contact: zocean636@gmail.com
-# Last-modified: 01 Nov 2020 05:26:15 PM
+# Last-modified: 11 Nov 2020 11:25:58 PM
 
 import base64
 import io
@@ -296,6 +296,7 @@ def set_xaxis_options(data_json):
     else:
         data = df
     column_list = [item for item in data.columns.to_list() if item not in ['chrom', 'start', 'stop', 'size', 'mid']]
+    column_list = list(sorted(column_list))
     #now = datetime.now()
     #print("column" + now.strftime("%H:%M:%S"))
     option_list = [{'label': i, 'value': i} for i in column_list]
