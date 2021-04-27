@@ -1,7 +1,7 @@
 #!/home/yangz6/Software/anaconda3/bin/python
 # Programmer : Yang Zhang 
 # Contact: zocean636@gmail.com
-# Last-modified: 24 Jan 2021 11:54:17 PM
+# Last-modified: 04 Mar 2021 08:30:56 PM
 
 import base64
 import io
@@ -25,7 +25,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # load data
 #df = pd.read_csv("data_large.tsv", sep = '\t', header = 0)
-df = pd.read_csv("U54_all.v3.tsv", sep = '\t', header = 0)
+df = pd.read_csv("U54_all.v4.tsv", sep = '\t', header = 0)
 
 # get possible column name
 column_list = [item for item in df.columns.to_list() if item not in ['chrom', 'start', 'stop', 'size', 'mid']]
@@ -102,7 +102,7 @@ app.layout = html.Div([
                 ], style = {'width':'30%', 'marginRight': '20px'}),
             html.Div([
                 html.Label('Reset highlight'),
-                html.Button('Reset', id = 'reset_highlight', style = {'width': '150px', 'marginBottom': '10px'})
+                html.Button('Reset', id = 'reset_highlight', style = {'width': '150px', 'marginBottom': '10px', 'background-color': '#ffc3bf'})
             ], style = {'marginLeft': '20px', 'marginRight': '20px'}),
             html.Div([
                 html.Label('Select pre-computed data'),
@@ -240,11 +240,12 @@ def get_figure(df, x_col, y_col, selected_points, data_format, figure_height):
     '''
     plot scatterplot given columns and highlighted point
     '''
+    pos = df['chrom'] + ':' + df['start'].astype(str) + '-' + df['stop'].astype(str)
     # plot 
     if data_format == 'raw':
-        fig = px.scatter(df, x=df[x_col], y=df[y_col], text=df.index)
+        fig = px.scatter(df, x=df[x_col], y=df[y_col], text = pos)
     else:
-        fig = px.scatter(df, x=df[x_col].rank(pct = True), y=df[y_col].rank(pct = True), text=df.index)
+        fig = px.scatter(df, x=df[x_col].rank(pct = True), y=df[y_col].rank(pct = True), text = pos)
     # highlight points
     fig.update_traces(selectedpoints = selected_points,
                       customdata = df.index,
@@ -255,9 +256,9 @@ def get_figure(df, x_col, y_col, selected_points, data_format, figure_height):
     if figure_height is None:
         figure_height = 600
     if data_format == 'raw':
-        fig.update_layout(margin={'l': 20, 'r': 0, 'b': 15, 't': 5}, dragmode='lasso', hovermode=False, xaxis_title = x_col.replace('_', ' '), yaxis_title = y_col.replace('_', ' '), height = figure_height)
+        fig.update_layout(margin={'l': 20, 'r': 0, 'b': 15, 't': 5}, dragmode='lasso', xaxis_title = x_col.replace('_', ' '), yaxis_title = y_col.replace('_', ' '), height = figure_height)
     else:
-        fig.update_layout(margin={'l': 20, 'r': 0, 'b': 15, 't': 5}, dragmode='lasso', hovermode=False, xaxis_title = x_col.replace('_', ' ')+' %', yaxis_title = y_col.replace('_', ' ')+' %', height = figure_height)
+        fig.update_layout(margin={'l': 20, 'r': 0, 'b': 15, 't': 5}, dragmode='lasso', xaxis_title = x_col.replace('_', ' ')+' %', yaxis_title = y_col.replace('_', ' ')+' %', height = figure_height)
     return fig
 
 def parse_content(file_content, filename, last_modified):
